@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>공장 인허가 절차 안내</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 1rem;
+      max-width: 100%;
+      margin: auto;
+      background-color: #fdfdfd;
+      font-family: 'Pretendard', sans-serif;
+    }
+    .intro-img {
+      display: block;
+      margin: 0 auto 1rem;
+      max-width: 250px;
+    }
+    .card {
+      padding: 1.2rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .question {
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .tip {
+      font-size: 0.9rem;
+      color: #6c757d;
+      text-align: center;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+    }
+    .answer {
+      margin-top: 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      white-space: pre-line;
+      text-align: left;
+      padding: 0.5rem;
+      background-color: #fff;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+    }
+    .slide-in {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    .slide-in-active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .nav-buttons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      font-size: 1rem;
+      padding: 0.75rem;
+    }
+    .info-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-left: 4px solid #0d6efd;
+      background-color: #eef5ff;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .info-title {
+      font-weight: bold;
+      color: #0d6efd;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    .info-icon {
+      font-weight: bold;
+      color: #495057;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://undraw.co/api/illustrations/choose.svg" alt="시작 안내" class="intro-img">
+  <h4 class="mb-3 text-center">🏭 공장 인허가 절차 안내</h4>
+
+  <div class="card slide-in slide-in-active" id="card">
+    <div id="question" class="question"></div>
+    <div id="tip" class="tip"></div>
+    <div id="buttons" class="d-grid gap-2 mb-3"></div>
+    <div id="answer" class="answer"></div>
+    <div class="nav-buttons">
+      <button class="btn btn-outline-secondary w-50 me-2" onclick="goBack()">← 이전</button>
+      <button class="btn btn-outline-danger w-50" onclick="restart()">처음부터</button>
+    </div>
+  </div>
+
+  <div class="info-box mt-4">
+    <div class="info-title">💡 공장 허가를 받아야 하는 경우를 알려드려요!</div>
+    <div>
+      <strong>1. 작업장 면적 500m² 이상의 제조업을 영위할 계획이 있는 사업자</strong><br>
+      <span class="info-icon">📌 여기서 "작업장 면적"이란?</span><br>
+      - 신청하신 제조 업종의 공정에 관계되는 기계를 설치한 공간을 말합니다.<br>
+      - 예: 목재가구 제조업의 경우 절삭기, 보링기 등은 포함되지만<br>
+        지게차처럼 단순 운반용 장비는 제외됩니다.
+    </div>
+  </div>
+
+  <script>
+    const flow = [
+      {
+        id: 'q1',
+        text: 'Q1. 공장 허가를 받으셨나요?',
+        tip: '📌 건축물 착공 전이라면 꼭 확인해야 할 질문이에요!',
+        options: [
+          { label: '예', next: 'q1_yes' },
+          { label: '아니오', next: 'q1_no' }
+        ]
+      },
+      {
+        id: 'q1_yes',
+        result: `✅ 건축물 착공을 준비해주세요.\n⚠️ 착공 지연 시 (3년 초과) 허가가 취소될 수 있습니다.`
+      },
+      {
+        id: 'q1_no',
+        text: 'Q2. 공장 허가를 받을 계획이 있으신가요?',
+        tip: '🧭 허가 필요 여부는 작업장 면적에 따라 달라져요.',
+        options: [
+          { label: '예', next: 'q2_yes' },
+          { label: '아니오', next: 'q2_no' }
+        ]
+      },
+      {
+        id: 'q2_yes',
+        result: `📌 공장 허가 체크리스트\n- 작업장 면적이 500㎡ 미만이면 허가가 필수는 아닙니다.\n- 자율 신청도 가능하며, 입지 제한 확인 필요합니다.`
+      },
+      {
+        id: 'q2_no',
+        result: `ℹ️ 필요 시 다시 절차를 시작하실 수 있습니다.`
+      }
+    ];
+
+    let current = 'q1';
+    let history = [];
+
+    function renderStep() {
+      const card = document.getElementById('card');
+      card.classList.remove('slide-in-active');
+      setTimeout(() => {
+        const step = flow.find(f => f.id === current);
+        const qBox = document.getElementById('question');
+        const tBox = document.getElementById('tip');
+        const bBox = document.getElementById('buttons');
+        const aBox = document.getElementById('answer');
+
+        qBox.innerHTML = '';
+        tBox.innerHTML = '';
+        bBox.innerHTML = '';
+        aBox.innerHTML = '';
+
+        if (step.text) {
+          qBox.innerText = step.text;
+          if (step.tip) {
+            tBox.innerText = step.tip;
+          }
+          step.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-primary';
+            btn.innerText = opt.label;
+            btn.onclick = () => {
+              history.push(current);
+              current = opt.next;
+              renderStep();
+            };
+            bBox.appendChild(btn);
+          });
+        } else if (step.result) {
+          aBox.innerText = step.result;
+        }
+
+        card.classList.add('slide-in-active');
+      }, 200);
+    }
+
+    function goBack() {
+      if (history.length > 0) {
+        current = history.pop();
+        renderStep();
+      }
+    }
+
+    function restart() {
+      current = 'q1';
+      history = [];
+      renderStep();
+    }
+
+    renderStep();
+  </script>
+
+</body>
+</html>
