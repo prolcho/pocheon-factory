@@ -160,17 +160,28 @@
   }
 }
 #info-area {
-    opacity: 0;
+  opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  display: none; /* 초기 상태에서는 아예 감춤 */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  display: none;
 }
 
 #info-area.visible {
   display: block;
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
+
+/* iOS에서 텍스트 흐림 방지 */
+#info-area *,
+#info-area {
+  -webkit-font-smoothing: antialiased; /* ✅ iOS용: 선명하게 */
+  text-rendering: optimizeLegibility;  /* ✅ 폰트 렌더링 향상 */
+  backface-visibility: hidden;         /* ✅ 잔상 제거 */
+  transform-style: preserve-3d;        /* ✅ GPU 오버레이 최소화 */
+}
+
+
 
 #dimmed-bg {
   position: fixed;
@@ -1109,6 +1120,9 @@ function renderStep() {
 
     if (info) {
       infoArea.classList.remove('visible');
+      void infoArea.offsetWidth;
+
+
       setTimeout(() => {
         infoTitle.innerText = info.title;
         infoContent.innerHTML = info.content;
