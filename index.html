@@ -409,7 +409,7 @@ const flow = [
 
   {
     id: 'q1_yes',
-    progress: 20,
+    progress: 25,
     text: '허가를 받은 부지에서 공사를 시작하셨나요?',
     options: [
       { label: '네, 공사 시작했어요', next: 'q2_started' },
@@ -419,7 +419,7 @@ const flow = [
 
   {
     id: 'q2_started',
-    progress: 40,
+    progress: 50,
     text: '건축물 준공(사용승인)은 완료되셨나요?',
     options: [
       { label: '네, 준공까지 완료했어요', next: 'q3_completed' },
@@ -429,7 +429,7 @@ const flow = [
 
   {
   id: 'q2_not_started',
-  progress: 40,
+  progress: 50,
   text: '혹시 공장 허가를 받으신지 4년이 지나셨나요?',
   options: [
     { label: '네, 4년이 지났어요', next: 'q2_overdue' },
@@ -454,7 +454,7 @@ const flow = [
 {
   id: 'q2_safe',
   text: '다음 절차를 꼬옥 확인해주세요 😊',
-  progress: 60,
+  progress: 75,
   options: [
     { label: '다음 절차가 궁금해요', next: 'q2_procedure_after_start' }
   ]
@@ -479,7 +479,7 @@ const flow = [
   {
     id: 'q3_completed',
     text: '공장설립 완료신고를 하셨나요?',
-    progress: 60,
+    progress: 75,
     options: [
       { label: '아직 안 했어요', next: 'q3_not_reported' },
       { label: '네, 신고했어요', next: 'q3_reported' }
@@ -523,20 +523,18 @@ const flow = [
 
   {
   id: 'q3_in_progress',
-  progress: 60,
+  progress: 75,
   result: `
-🔧 <span class="highlight-phrase">아직 공사가 진행 중이시군요!</span><br><br>
-
+🔧 <span class="highlight-phrase">아직 공사가 진행 중이시군요!</span><br>
 <span class="highlight-phrase">공장설립 허가일로부터 4년 이내</span>에<br>
-1️⃣ <strong>건물 준공</strong><br>
-2️⃣ <strong>기계장치 설치</strong><br>
-3️⃣ <strong>공장설립 완료신고</strong><br>
-를 모두 마치셔야 합니다.<br><br>
-
+1️⃣ <strong>건물 준공</strong>
+2️⃣ <strong>기계장치 설치</strong>
+3️⃣ <strong>공장설립 완료신고</strong>
+를 모두 마치셔야 합니다.<br>
 ⛔ 이 기한을 넘기면 <span class="highlight-phrase">허가가 취소될 수 있어요.</span><br><br>
 
-📌 아직 여유가 있으시다면,<br>
-<em>계획을 꼼꼼히 확인</em>하시고<br>
+📌 아직 기간 여유가 있으시다면,
+계획을 꼼꼼히 확인<e하시고
 진행 상황을 점검해 주세요!
   `,
   options: [
@@ -548,7 +546,7 @@ const flow = [
   {
     id: 'q4_earthwork',
     text: '토목 공사 후 일정기간 내 건축 착공신고를 하셔야 허가 유지가 가능합니다.',
-    progress: 40,
+    progress: 50,
     options: [
       { label: '착공신고는 아직이에요', next: 'q4_delay_warning' },
       { label: '신고하긴 했는데 이후 절차가 헷갈려요', next: 'q4_next_steps' }
@@ -570,7 +568,7 @@ const flow = [
 
   {
     id: 'q4_delay_warning',
-    progress: 60,
+    progress: 100,
     result: '⏳ 1년 이상 방치되면 허가가 취소될 수 있어요.\n가능한 빨리 건축 착공신고를 진행해주세요!',
   
     options: [ { label: '처음으로 돌아가기', next: 'q1' } ]
@@ -578,7 +576,7 @@ const flow = [
 
   {
     id: 'q4_next_steps',
-    progress: 80,
+    progress: 100,
     result: '다음 단계는 건축물 준공 후, 기계장치 설치 및 공장설립 완료신고입니다.\n\n이 절차를 마쳐야 정식 가동이 가능해요!',
     options: [ { label: '처음으로 돌아가기', next: 'q1' } ]
   }
@@ -1165,11 +1163,12 @@ function renderStep() {
       setTimeout(() => (infoArea.style.display = 'none'), 400);
     }
 
-    const percent = step.progress !== undefined
-  ? step.progress
-  : step.result
-    ? 100
-    : Math.max(1, Math.round(((history.length + 1) / totalSteps) * 100));
+    const percent = step.result
+  ? 100
+  : (step.progress !== undefined
+      ? step.progress
+      : Math.max(1, Math.round(((history.length + 1) / totalSteps) * 100)));
+
 
 const progressBar = document.getElementById('progress-bar');
 progressBar.style.width = percent + '%';
