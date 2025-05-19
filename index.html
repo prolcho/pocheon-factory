@@ -67,14 +67,28 @@
       justify-content: space-between;
     }
     .info-box {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 1.5rem;
+  padding: 1.2rem 1.2rem;
+  border-left: 6px solid #198754;
+  background-color: #f0fff5;  /* 더 밝은 연두톤 */
+  border-radius: 10px;
 
-      font-family: 'Noto Sans KR', sans-serif;
-        margin-top: 1.5rem;
-  padding: 1rem;
-  border-left: 5px solid #198754; /* 강조선 */
-  background-color: #e6f4ea;      /* 배경색: 연한 민트 */
-  border-radius: 8px;
+  /* 텍스트 선명도 개선 */
+  font-size: 1.05rem;
+  color: #111; /* 거의 검정 */
+  line-height: 1.75;
+  letter-spacing: -0.2px;
+
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);  /* 살짝 떠 보이게 */
+  border: 1px solid #d4f5d0;  /* 아주 연한 테두리 */
 }
+
+
 
 #info-content {
   color: #212529; /* 검정색으로 변경 */
@@ -164,6 +178,11 @@
   transform: translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   display: none; /* 초기 상태에서는 아예 감춤 */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 #info-area.visible {
@@ -335,6 +354,10 @@ body.no-scroll {
   outline-offset: 2px;
 }
 
+html, body {
+  -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
+  scroll-behavior: smooth;           /* 내부 이동 부드럽게 */
+}
 
 
 
@@ -343,7 +366,8 @@ body.no-scroll {
 <body>
 
 
-<h3 class="mb-4 text-center">🏭 포천시 공장 인허가 절차 안내</h3>
+<h3 class="mb-4 text-center">🏭 포천시 공장 설립승인<br>
+    인허가 절차 안내</h3>
 <!-- 진행 프로그레스바 -->
 <div class="progress mb-3" style="height: 20px;">
   <div id="progress-bar" class="progress-bar" role="progressbar"
@@ -385,7 +409,7 @@ body.no-scroll {
 const flow = [
   {
     id: 'q1',
-    text: '포천시에서 공장 허가를 받으셨나요?',
+    text: '포천시에서 공장 설립승인(허가)를 받으셨나요?',
     progress: 0,
     options: [
       { label: '네, 받았습니다', next: 'q1_yes' },
@@ -504,16 +528,16 @@ const flow = [
     result: `
 ✅ <span class="highlight-phrase">모든 절차를 완벽하게 마무리하셨습니다!</span> 🎉<br><br>
 
-이제 <strong>공장등록증</strong>이 발급되며,<br>
+이제 <strong>공장등록증</strong>이 발급되었으며,<br>
 해당 사업장은 <span class="highlight-phrase">정식 등록된 공장</span>으로 인정받게 됩니다.<br><br>
 
-📌 <strong>공장등록증은 다음과 같은 상황에서 꼭 필요해요:</strong><br>
+📌 <strong>공장등록증은 다음과 같은 상황에서 필요할 수 있어요:</strong><br>
 • <span class="highlight-phrase">뿌리기업, 직접생산시설 증명</span>이나<br>
 • <span class="highlight-phrase">공공기관, 대기업 납품계약 시</span><br>
 • <span class="highlight-phrase">금융기관 대출 심사</span><br>
 • <span class="highlight-phrase">중소기업 지원 정책 참여 시</span> 등<br><br>
 또한 <span class="highlight-phrase">조달청 입찰 참가</span>나 <span class="highlight-phrase">정부의 건설 사업 참여</span> 시에도<br>
-공장등록증이 <strong>증빙 자료</strong>로 활용됩니다.<br><br>
+공장등록증이 <strong>증빙 자료</strong>로 활용될 수 있어요.<br><br>
 
 👏 정말 수고 많으셨고요,<br>
 앞으로의 사업도 힘차게 응원하겠습니다! 😊
@@ -534,7 +558,7 @@ const flow = [
 ⛔ 이 기한을 넘기면 <span class="highlight-phrase">허가가 취소될 수 있어요.</span><br><br>
 
 📌 아직 기간 여유가 있으시다면,
-계획을 꼼꼼히 확인<e하시고
+계획을 꼼꼼히 확인하시고
 진행 상황을 점검해 주세요!
   `,
   options: [
@@ -556,13 +580,13 @@ const flow = [
   {
     id: 'q4_construct',
     result: `👍 <span class="highlight-phrase">잘 진행 중이세요!</span><br><br>
-        progress: 60,
 <span class="highlight-phrase">허가일로부터 4년 이내</span>에<br>
 1️⃣ <strong>건물 준공</strong><br>
 2️⃣ <strong>기계장치 설치</strong><br>
 <span class="highlight-phrase">3️⃣ 공장설립 완료신고</span><br>
 까지 마무리하셔야 합니다.<br><br>
 ✅ <strong>완료신고까지 하셔야 정식 공장으로 운영</strong>하실 수 있어요!`,
+    progress: 60,
     options: [ { label: '처음으로 돌아가기', next: 'q1' } ]
   },
 
@@ -594,7 +618,7 @@ const infoMap = {
   },
 
   'q1': {
-    title: '🌱 이 안내는 공장 허가를 받으신 분들께 드려요',
+    title: '🌱 이 안내는 공장 허가를 받으신 분들께 알려드려요',
     content: `어려운 말은 <span class="highlight-phrase">되도록 빼고</span>,<br>
     우리를 머리 아프게하는 법적 용어는 <span class="highlight-phrase">최대한 덜 사용해서</span> 설명드릴게요!<br><br>
 혹시 <span class="highlight-phrase">헷갈리는 부분</span>이 있다면<br>
@@ -711,7 +735,7 @@ const popupMap = {
   'q1_yes': [
   {
     id: 'popup_how_to_judge_construction_start',
-    label: '공사를 시작했는지 유무는 어떻게 판단해요?',
+    label: '공사를 시작했는지는 어떻게 판단해요?',
     content: `공사를 시작했는지는 <span class="highlight-phrase">건축 착공신고가 수리되었는지 여부</span>를 기준으로 판단해요.<br><br>
 즉, <span class="highlight-phrase">"착공신고가 수리(접수 완료)되었는가?"</span>를 보면
 공사 시작 여부를 알 수 있습니다.`
@@ -886,7 +910,18 @@ const popupMap = {
 반드시 <span class="highlight-phrase">변경승인</span>을 받고 운영을 하셔야 해요!<br><br>
 📌 이를 이행하지 않고 운영할 경우에는<br>
 <span class="highlight-phrase">고발 대상</span>이 될 수 있으니 꼭 주의해주세요 😥`
-  }
+  },
+
+  {
+  id: 'popup_business_change_warning',
+  label: '업종이 바뀐 경우는요?',
+  content: `✅ <span class="highlight-phrase">공장 내 업종</span>이<br>
+기존 허가받은 내용과 <span class="highlight-phrase">다르게 변경</span>된 경우에는<br><br>
+운영에 앞서 반드시 <span class="highlight-phrase">업종 변경승인</span>을 받아야 해요!<br><br>
+📌 <span class="highlight-phrase">변경승인 없이 운영</span>할 경우에는<br>
+<span class="highlight-phrase">고발 대상</span>이 될 수 있으니 꼭 주의해주세요 ⚠️`
+}
+
   ],
 
 'q3_in_progress': [
@@ -932,7 +967,7 @@ const popupMap = {
 
 ✅ <strong>완료신고는 필수 절차</strong>이며,<br>
 반드시 신고를 완료한 뒤에<br>
-<em>매도나 임대를 진행</em>해 주세요! 😊
+매도나 임대를 진행해 주세요! 😊
 `
 },
 
@@ -1016,14 +1051,24 @@ const popupMap = {
 `
 }
 ,
-  {
-    id: 'popup_register_cert',
-    label: '공장 등록증은 언제 나오나요?',
-    content: `공장설립 완료신고가 접수·승인되면 <span class="highlight-phrase">공장등록증</span>이 발급됩니다.<br><br>
-이는 해당 사업장이 <strong>적법하게 인허가를 마쳤음을 증명</strong>하는 문서이며,<br>
-<span class="highlight-phrase">중소기업 인증</span>, <span class="highlight-phrase">세금 감면</span>, <span class="highlight-phrase">정부 입찰</span> 등<br>
-다양한 행정·금융 절차에서 <strong>필수적인 자료</strong>로 활용됩니다.`
-  },
+{
+  id: 'popup_register_cert',
+  label: '공장 등록증은 언제 나오나요?',
+  content: `
+📄 <strong><span class="highlight-phrase">공장등록증</span>은 언제 발급되나요?</strong><br><br>
+✅ <span class="highlight-phrase">공장설립 완료신고</span>가 접수·승인되면<br>
+<strong>공장등록증이 발급</strong>됩니다!<br><br>
+
+📌 이 문서는 해당 사업장이 <strong>적법하게 인허가를 마쳤으며, 공장으로 인정할 수 있다는</strong>공식적 문서이며,<br><br>
+
+🧾 <span class="highlight-phrase">중소기업(제조업) 인증</span><br>
+💰 <span class="highlight-phrase">보조금 혜택</span><br>
+🏛️ <span class="highlight-phrase">대기업, 공공기관 입찰 참여</span> 등<br><br>
+
+다양한 <strong>행정·금융 절차에서 증빙자료</strong>로 활용돼요! 😊
+`
+}
+,
 ]
 };
 
@@ -1224,7 +1269,6 @@ document.addEventListener('click', function (event) {
 </script>
 
 
-</script>
 <!-- ✅ 포천 슬로건 이미지 -->
 <div class="slogan-wrapper text-center mt-5">
     <a href="https://www.pocheon.go.kr/www/contents.do?key=5220" target="_blank" rel="noopener noreferrer">
