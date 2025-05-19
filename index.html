@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>공장 인허가 질문 흐름</title>
+  <title>공장 인허가 절차확인 프로그램</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -160,28 +160,17 @@
   }
 }
 #info-area {
-  opacity: 0;
+    opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  display: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  display: none; /* 초기 상태에서는 아예 감춤 */
 }
 
 #info-area.visible {
   display: block;
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
 }
-
-/* iOS에서 텍스트 흐림 방지 */
-#info-area *,
-#info-area {
-  -webkit-font-smoothing: antialiased; /* ✅ iOS용: 선명하게 */
-  text-rendering: optimizeLegibility;  /* ✅ 폰트 렌더링 향상 */
-  backface-visibility: hidden;         /* ✅ 잔상 제거 */
-  transform-style: preserve-3d;        /* ✅ GPU 오버레이 최소화 */
-}
-
-
 
 #dimmed-bg {
   position: fixed;
@@ -354,7 +343,7 @@ body.no-scroll {
 <body>
 
 
-<h3 class="mb-4 text-center">🏭 공장 인허가 절차 안내</h3>
+<h3 class="mb-4 text-center">🏭 포천시 공장 인허가 절차 안내</h3>
 <!-- 진행 프로그레스바 -->
 <div class="progress mb-3" style="height: 20px;">
   <div id="progress-bar" class="progress-bar" role="progressbar"
@@ -397,6 +386,7 @@ const flow = [
   {
     id: 'q1',
     text: '포천시에서 공장 허가를 받으셨나요?',
+    progress: 0,
     options: [
       { label: '네, 받았습니다', next: 'q1_yes' },
       { label: '아니요, 받은 적 없습니다', next: 'q1_no' }
@@ -404,13 +394,14 @@ const flow = [
   },
   {
   id: 'q1_no',
+  progress: 20,
   result: `이 페이지는 <span class="highlight-phrase">공장 설립 허가</span>를 이미 받으신 분들을 위한 안내예요 😊<br><br>
 허가 여부가 확실하지 않으시다면
 아래에 있는 번호로 <span class="highlight-phrase">편하게 문의</span>주세요!<br><br>
 이 안내는 시민 여러분께서 <span class="highlight-phrase">불편 없이</span> 허가 절차를 이해하시고,
 과태료나 고발, 허가취소 같은 <span class="highlight-phrase">불필요한 상황을 예방</span>하실 수 있도록 준비한 거예요.<br><br>
 언제든지 <span class="highlight-phrase">더 좋은 인연</span>으로
-포천시청에서 다시 뵐 수 있기를 진심으로 바랍니다 🙏`,
+포천시청에서 다시 뵐 수 있기를 진심으로 바랍니다`,
   options: [
     { label: '다시 처음으로', next: 'q1' }
   ]
@@ -418,6 +409,7 @@ const flow = [
 
   {
     id: 'q1_yes',
+    progress: 20,
     text: '허가를 받은 부지에서 공사를 시작하셨나요?',
     options: [
       { label: '네, 공사 시작했어요', next: 'q2_started' },
@@ -427,6 +419,7 @@ const flow = [
 
   {
     id: 'q2_started',
+    progress: 40,
     text: '건축물 준공(사용승인)은 완료되셨나요?',
     options: [
       { label: '네, 준공까지 완료했어요', next: 'q3_completed' },
@@ -436,6 +429,7 @@ const flow = [
 
   {
   id: 'q2_not_started',
+  progress: 40,
   text: '혹시 공장 허가를 받으신지 4년이 지나셨나요?',
   options: [
     { label: '네, 4년이 지났어요', next: 'q2_overdue' },
@@ -444,6 +438,7 @@ const flow = [
 },
 {
   id: 'q2_overdue',
+  progress: 60,
   result: `⏳ <span class="highlight-phrase">허가일로부터 4년이 지났다면</span>,<br>
   <strong>허가가 취소될 수 있는</strong> 상황일 수 있어요.<br><br>
   하지만 <span class="highlight-phrase">바로 취소되는 건 아니고</span>,<br>
@@ -459,6 +454,7 @@ const flow = [
 {
   id: 'q2_safe',
   text: '다음 절차를 꼬옥 확인해주세요 😊',
+  progress: 60,
   options: [
     { label: '다음 절차가 궁금해요', next: 'q2_procedure_after_start' }
   ]
@@ -467,6 +463,7 @@ const flow = [
 
 {
   id: 'q2_procedure_after_start',
+  progress: 80,
   result: `🏗️ <span class="highlight-phrase">착공을 하신다면, 다음 절차는 이렇게 됩니다!</span><br><br>
 1️⃣ 먼저 <span class="highlight-phrase">건물 준공</span>까지 마무리해주시고요,<br>
 2️⃣ 그 다음엔 <span class="highlight-phrase">기계장치 설치</span>를 해주셔야 해요.<br><br>
@@ -482,6 +479,7 @@ const flow = [
   {
     id: 'q3_completed',
     text: '공장설립 완료신고를 하셨나요?',
+    progress: 60,
     options: [
       { label: '아직 안 했어요', next: 'q3_not_reported' },
       { label: '네, 신고했어요', next: 'q3_reported' }
@@ -489,6 +487,7 @@ const flow = [
   },
   {
   id: 'q3_not_reported',
+  progress: 80,
   result: `⚠️ <span class="highlight-phrase">완료신고는 공장 설립의 마지막 단계</span>예요!<br><br>
   <span class="highlight-phrase">기계장치를 설치</span>하신 후에는<br>
   <strong>꼭 <span class="highlight-phrase">공장설립 완료신고</span>를 해주셔야 합니다.</strong><br><br>
@@ -501,6 +500,7 @@ const flow = [
 
   {
     id: 'q3_reported',
+    progress: 100,
     result: `
 ✅ <span class="highlight-phrase">모든 절차를 완벽하게 마무리하셨습니다!</span> 🎉<br><br>
 
@@ -523,13 +523,21 @@ const flow = [
 
   {
   id: 'q3_in_progress',
-  result: `🔧 <span class="highlight-phrase">아직 공사가 진행 중이시군요!</span><br>
+  progress: 60,
+  result: `
+🔧 <span class="highlight-phrase">아직 공사가 진행 중이시군요!</span><br><br>
 
-<span class="highlight-phrase">공장설립 허가일로부터 4년 이내</span>에
-1️⃣ <strong>건물 준공</strong>
-2️⃣ <strong>기계장치 설치</strong>
-3️⃣ <strong>공장설립 완료신고</strong>
-를 모두 마치셔야 합니다.<br>
+<span class="highlight-phrase">공장설립 허가일로부터 4년 이내</span>에<br>
+1️⃣ <strong>건물 준공</strong><br>
+2️⃣ <strong>기계장치 설치</strong><br>
+3️⃣ <strong>공장설립 완료신고</strong><br>
+를 모두 마치셔야 합니다.<br><br>
+
+⛔ 이 기한을 넘기면 <span class="highlight-phrase">허가가 취소될 수 있어요.</span><br><br>
+
+📌 아직 여유가 있으시다면,<br>
+<em>계획을 꼼꼼히 확인</em>하시고<br>
+진행 상황을 점검해 주세요!
   `,
   options: [
     { label: '처음으로 돌아가기', next: 'q1' }
@@ -540,6 +548,7 @@ const flow = [
   {
     id: 'q4_earthwork',
     text: '토목 공사 후 일정기간 내 건축 착공신고를 하셔야 허가 유지가 가능합니다.',
+    progress: 40,
     options: [
       { label: '착공신고는 아직이에요', next: 'q4_delay_warning' },
       { label: '신고하긴 했는데 이후 절차가 헷갈려요', next: 'q4_next_steps' }
@@ -549,6 +558,7 @@ const flow = [
   {
     id: 'q4_construct',
     result: `👍 <span class="highlight-phrase">잘 진행 중이세요!</span><br><br>
+        progress: 60,
 <span class="highlight-phrase">허가일로부터 4년 이내</span>에<br>
 1️⃣ <strong>건물 준공</strong><br>
 2️⃣ <strong>기계장치 설치</strong><br>
@@ -560,12 +570,15 @@ const flow = [
 
   {
     id: 'q4_delay_warning',
+    progress: 60,
     result: '⏳ 1년 이상 방치되면 허가가 취소될 수 있어요.\n가능한 빨리 건축 착공신고를 진행해주세요!',
+  
     options: [ { label: '처음으로 돌아가기', next: 'q1' } ]
   },
 
   {
     id: 'q4_next_steps',
+    progress: 80,
     result: '다음 단계는 건축물 준공 후, 기계장치 설치 및 공장설립 완료신고입니다.\n\n이 절차를 마쳐야 정식 가동이 가능해요!',
     options: [ { label: '처음으로 돌아가기', next: 'q1' } ]
   }
@@ -588,8 +601,15 @@ const infoMap = {
     우리를 머리 아프게하는 법적 용어는 <span class="highlight-phrase">최대한 덜 사용해서</span> 설명드릴게요!<br><br>
 혹시 <span class="highlight-phrase">헷갈리는 부분</span>이 있다면<br>
 언제든지 <span class="highlight-phrase">시청으로 편하게 문의</span>주세요 😊<br><br>
+📞 <strong>공장관리팀 대표번호</strong><br>
+📍 <span class="highlight-phrase">소흘·군내·신북·일동·이동·화현·포천</span><br>
+→ 031-538-2218<br>
+📍 <span class="highlight-phrase">내촌·가산·창수·영중·영북·관인·선단</span><br>
+→ 031-538-2324<br><br>
 아래쪽에 있는 <span class="highlight-phrase">‘더 큰 포천, 더 큰 행복’</span> 배너를 누르면<br>
-<span class="highlight-phrase">홈페이지로 슝~ 이동</span>해요! 🏃‍♂️✨`
+<span class="highlight-phrase">홈페이지로 이동</span>해요! 🏃‍♂️✨<br><br>
+
+`
   },
 
   'q1_yes': {
@@ -615,7 +635,7 @@ const infoMap = {
   },
 
 'q3_in_progress': {
-  title: '🛠️ 공사 중이시라면 꼭 아셔야해요',
+  title: '🛠️ 현재 공사 중 단계입니다',
   content: `
 공장을 허가받은 뒤에도<br>
 <span class="highlight-phrase">지나치게 장기간 공사가 지연되면</span><br>
@@ -885,7 +905,7 @@ const popupMap = {
 <span class="highlight-phrase">‘허가 취소 청문’이라는 절차</span>를 진행하게 됩니다.<br><br>
 
 만약 <strong>청문 안내 공문</strong>을 받지 않으셨다면,<br>
-<span class="highlight-phrase">아직 공장 허가가 취소된 것은 아닙니다</span> 😊<br><br>
+<span class="highlight-phrase">아직 공장 허가 취소절차가 진행되는 것은 아닙니다</span> 😊<br><br>
 
 💬 다만 <span class="highlight-phrase">개발행위 변경허가</span> 등<br>
 다른 인허가를 준비 중이시라면,<br>
@@ -972,7 +992,7 @@ const popupMap = {
 
 이걸 놓치시면,<br>
 현장 점검이나 새로운 인허가 진행 시<br>
-<span class="highlight-phrase">무허가로 간주되거나 과태료 대상</span>이 될 수 있으니<br>
+<span class="highlight-phrase">200만원 이하의 과태료 대상</span>이 될 수 있으니<br>
 <span class="highlight-phrase">꼭 주의해주세요</span> 😢<br><br>
 
 📌 설명드릴 게 많아서 다 적긴 어렵지만,<br>
@@ -981,13 +1001,23 @@ const popupMap = {
 `
   },
   {
-    id: 'popup_closure',
-    label: '폐업할 경우 어떻게 해야 하나요?',
-    content: `공장을 폐업할 경우에는 반드시 '폐업신고'를 하셔야 합니다.<br><br>
-폐업신고를 하지 않으면, 이후 양수인(새 매입자)이나 임차인이<br>
-공장 등록 또는 허가 신청을 하려 할 때<br>
-행정 절차가 지연되고, 법적 분쟁이 발생할 여지가 있습니다.`
-  },
+  id: 'popup_closure',
+  label: '폐업할 경우 어떻게 해야 하나요?',
+  content: `
+공장을 <span class="highlight-phrase">폐업</span>할 경우에는<br>
+<strong>반드시 ‘공장 등록 취소신청(폐업신고)’을 하셔야 합니다.</strong><br><br>
+
+폐업신고를 하지 않으면,<br>
+이후 <span class="highlight-phrase">양수인(새 매입자)</span>이나<br>
+<span class="highlight-phrase">임차인</span>이 공장 등록 또는 새로운 허가 신청을 하려 할 때<br>
+<strong>행정 절차가 지연되거나</strong><br>
+<strong>이로인한 법적 분쟁</strong>이 발생할 여지가 있습니다.<br><br>
+
+📌 따라서 <span class="highlight-phrase">운영 중단 시 반드시 폐업신고</span>를 하셔야<br>
+절차가 원활히 진행될 수 있습니다.
+`
+}
+,
   {
     id: 'popup_register_cert',
     label: '공장 등록증은 언제 나오나요?',
@@ -1120,9 +1150,6 @@ function renderStep() {
 
     if (info) {
       infoArea.classList.remove('visible');
-      void infoArea.offsetWidth;
-
-
       setTimeout(() => {
         infoTitle.innerText = info.title;
         infoContent.innerHTML = info.content;
@@ -1138,11 +1165,18 @@ function renderStep() {
       setTimeout(() => (infoArea.style.display = 'none'), 400);
     }
 
-    const percent = step.result ? 100 : Math.max(1, Math.round((currentIndex / totalSteps) * 100));
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = percent + '%';
-    progressBar.setAttribute('aria-valuenow', percent);
-    progressBar.innerText = percent + '%';
+    const percent = step.progress !== undefined
+  ? step.progress
+  : step.result
+    ? 100
+    : Math.max(1, Math.round(((history.length + 1) / totalSteps) * 100));
+
+const progressBar = document.getElementById('progress-bar');
+progressBar.style.width = percent + '%';
+progressBar.setAttribute('aria-valuenow', percent);
+progressBar.innerText = percent + '%';
+
+
 
     card.classList.add('slide-in-active');
 
