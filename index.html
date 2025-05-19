@@ -229,15 +229,16 @@
 
 
 
-@keyframes info-box-smooth-bounce {
-  0%   { opacity: 0; transform: translateY(20px); }
-  40%  { opacity: 1; transform: translateY(-2px); }
+@keyframes info-box-smooth-slow {
+  0%   { opacity: 0; transform: translateY(30px); }
+  50%  { opacity: 1; transform: translateY(-4px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 .info-box.animated {
-  animation: info-box-smooth-bounce 0.7s cubic-bezier(0.25, 0.8, 0.3, 1);
+  animation: info-box-smooth-slow 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
+
 
 
 
