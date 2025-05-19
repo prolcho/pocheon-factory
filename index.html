@@ -174,21 +174,17 @@
   }
 }
 #info-area {
-    opacity: 0;
+    display: none;
+  opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  display: none; /* 초기 상태에서는 아예 감춤 */
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
   will-change: transform, opacity;
 }
 
 #info-area.visible {
-  display: block;
+    display: block;
   opacity: 1;
   transform: translateY(0);
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 #dimmed-bg {
@@ -233,21 +229,18 @@
 
 
 
-@keyframes info-box-bounce {
-  0%   { transform: translateY(10px); opacity: 0; }
-  50%  { transform: translateY(-5px); opacity: 1; }
-  100% { transform: translateY(0); }
-}
-
-@keyframes info-box-highlight {
-  0%   { background-color: #e6f4ea; }
-  50%  { background-color: #cdeed9; }
-  100% { background-color: #e6f4ea; }
+@keyframes info-box-smooth-bounce {
+  0%   { opacity: 0; transform: translateY(20px); }
+  40%  { opacity: 1; transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .info-box.animated {
-  animation: info-box-bounce 0.6s ease, info-box-highlight 1.2s ease;
+  animation: info-box-smooth-bounce 0.7s cubic-bezier(0.25, 0.8, 0.3, 1);
 }
+
+
+
 /* ✅ 텍스트 줄바꿈 흐름 개선 (모든 환경 공통) */
 body, .card, .info-box, .popup-box, .popup-box p, .popup-box h4, .info-content {
   word-break: keep-all;         /* 단어 중간 끊김 방지 */
@@ -1192,18 +1185,17 @@ function renderStep() {
     const infoContent = document.getElementById('info-content');
 
     if (info) {
-      infoArea.classList.remove('visible');
-      setTimeout(() => {
-        infoTitle.innerText = info.title;
-        infoContent.innerHTML = info.content;
-        infoArea.style.display = 'block';
-        requestAnimationFrame(() => {
-          infoArea.classList.add('visible');
-          infoArea.classList.add('animated');
-          setTimeout(() => infoArea.classList.remove('animated'), 1200);
-        });
-      }, 300);
-    } else {
+  infoArea.classList.remove('visible', 'animated');
+  infoTitle.innerText = info.title;
+  infoContent.innerHTML = info.content;
+  infoArea.style.display = 'block';
+
+  requestAnimationFrame(() => {
+    infoArea.classList.add('visible');
+    infoArea.classList.add('animated');
+  });
+}
+ else {
       infoArea.classList.remove('visible');
       setTimeout(() => (infoArea.style.display = 'none'), 400);
     }
