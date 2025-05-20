@@ -739,7 +739,7 @@ const popupMap = {
     label: '부지를 너무 오래 방치하면 어떻게 되나요?',
     content: `<span class="highlight-phrase">공장 설립 허가 후 3년 이내</span>에 착공하지 않으면,<br>
 허가가 <span class="highlight-phrase">취소</span>될 수 있어요 😢<br><br>
-단, <span class="highlight-phrase">농지의 경우에는 2년 이내 착공</span>이 원칙입니다.<br><br>
+<span class="highlight-phrase">농지의 경우에는 2년 이내 착공</span>이 원칙입니다.<br><br>
 또한 <span class="highlight-phrase">1년 이상 방치된 경우</span>에는,<br>
 실제로 공사를 진행하고 있는지를 판단하기 위해<br>
 <span class="highlight-phrase">항공사진 이력 확인</span>과 현장 세부 조사를 진행하게 됩니다.<br><br>
@@ -870,6 +870,92 @@ const popupMap = {
 📞 <strong>공장관리팀 대표번호: 031-538-2218, 031-538-2324</strong>`
   }
 ],
+  'q2_safe' : [
+  {
+  id: 'popup_cancellation_conditions',
+  label: '4년이 지나면 어떻게 되나요?',
+  content: `
+✅ <strong>공장 설립 승인 후 4년이 경과하면, 허가 취소 요건에 해당될 수 있습니다.</strong><br><br>
+
+아래와 같은 사유가 있는 경우 <span class="highlight-phrase">청문 절차</span>를 거쳐<br>
+<strong>허가가 취소될 수 있습니다:</strong><br><br>
+
+1️⃣ <strong>4년 이내에</strong> <span class="highlight-phrase">건축 준공, 기계장치 설치, 완료신고</span>를 모두 완료하지 않은 경우<br><br>
+
+2️⃣ <strong>3년 이상 공사를 시작하지 않은 경우</strong><br>
+(※ 농지인 경우는 <strong>2년 이내 착공</strong> 필요)<br><br>
+
+3️⃣ <strong>1년 이상 공사가 중단된 경우</strong><br><br>
+
+4️⃣ <strong>허위 또는 부정한 방법으로 허가를 받은 경우</strong><br><br>
+
+⛔ 위 사유에 해당되면 관할 부서에서 청문을 실시하며,<br>
+그 결과에 따라 <strong>허가가 취소될 수 있습니다.</strong>
+`
+},
+
+{
+  id: 'popup_cancellation_consequences',
+  label: '취소되면 어떤 불이익이 있나요?',
+  content: `<span class="highlight-phrase">공장 설립 승인(허가) 취소 시 주요 불이익은 다음과 같아요:</span><br><br>
+
+1️⃣ <strong>원상복구 의무 발생</strong><br>
+→ <span class="highlight-phrase">산지·농지</span>인 경우<br>
+<strong>임야·전·답 등으로 복구해야 할 수 있어요.</strong><br><br>
+
+2️⃣ <strong>이미 지어진 건물이라도</strong><br>
+→ <span class="highlight-phrase">목적 외 사용</span>으로 간주되면<br>
+<strong>고발 조치</strong> 대상이 될 수 있습니다.<br><br>
+
+3️⃣ <strong>재허가 절차 필요</strong><br>
+→ 다시 공장설립 승인을 받아야 하며<br>
+기존 혜택(세금 감면 등)은 소급 환수될 수 있어요.<br><br>
+
+⚠️ 되도록 <strong>기한 내에 완료신고까지 완료</strong>하시는 것이 가장 안전합니다!`
+}
+],
+  'q2_overdue' : [
+  {
+  id: 'popup_cancellation_conditions',
+  label: '어떤 경우에 허가가 취소될 수 있나요?',
+  content: `✅ <strong>공장설립 허가가 취소되는 주요 사유는 다음과 같아요:</strong><br><br>
+
+1️⃣ <span class="highlight-phrase">4년 이내에</span> <strong>건축 준공 + 기계장치 설치 + 완료신고</strong>를 완료하지 않은 경우<br><br>
+
+2️⃣ <span class="highlight-phrase">3년 이상 착공하지 않은 경우</span><br>
+(농지인 경우는 2년 이내 착공)<br><br>
+
+3️⃣ <span class="highlight-phrase">1년 이상 공사를 중단</span>한 경우<br><br>
+
+4️⃣ <span class="highlight-phrase">허위 또는 부정한 방법으로 허가</span>를 받은 경우<br><br>
+
+⛔ <strong>이러한 사유가 확인되면 청문 절차 후 허가가 취소될 수 있습니다.</strong>`
+},
+
+{
+  id: 'popup_cancellation_consequences',
+  label: '취소되면 어떤 불이익이 있나요?',
+  content: `<span class="highlight-phrase">공장 설립 승인(허가) 취소 시 주요 불이익은 다음과 같아요:</span><br><br>
+
+1️⃣ <strong>원상복구 의무 발생</strong><br>
+→ <span class="highlight-phrase">산지·농지</span>인 경우<br>
+<strong>임야·전·답 등으로 복구해야 할 수 있어요.</strong><br><br>
+
+2️⃣ <strong>이미 지어진 건물이라도</strong><br>
+→ <span class="highlight-phrase">목적 외 사용</span>으로 간주되면<br>
+<strong>고발 조치</strong> 대상이 될 수 있습니다.<br><br>
+
+3️⃣ <strong>재허가 절차 필요</strong><br>
+→ 다시 공장설립 승인을 받아야 하며<br>
+기존 혜택(세금 감면 등)은 소급 환수될 수 있어요.<br><br>
+
+⚠️ 되도록 <strong>기한 내에 완료신고까지 완료</strong>하시는 것이 가장 안전합니다!`
+}
+],
+
+
+
+
   'q3_completed': [
 
   {
@@ -966,15 +1052,23 @@ const popupMap = {
 },
 
 
-    {
-      id: 'popup_change_minor_area',
-      label: '작업장 면적이 조금 변경될거 같아요',
-      content: `작업장 면적이 기존보다 20% 미만으로 증가한 경우에는
-기존 승인사항의 연장으로 간주하여 별도 변경승인 없이
-'변경된 사항을 포함한 완료신고서'만 제출해도 처리가 가능합니다.
+{
+  id: 'popup_change_minor_area',
+  label: '작업장 면적이 조금 변경될 거 같아요',
+  content: `
+🏗️ <strong>작업장 면적이 기존보다 20% 미만으로 증가한 경우</strong><br>
+→ <span class="highlight-phrase">기존 승인사항의 범위</span>로 간주됩니다.<br>
+따라서 <strong>별도의 변경승인 없이</strong><br>
+<strong>‘변경된 사항을 포함한 완료신고서’만 제출</strong>해도 처리가 가능합니다.<br><br>
 
-단, 20% 이상 면적 증가 또는 용도 변경이 포함되면 변경승인 대상입니다.`
-    },
+⚠️ 단, <strong>작업장 또는 부지 면적이 20% 이상 증가</strong하면<br>
+→ <span class="highlight-phrase">변경승인 대상</span>이 됩니다.<br><br>
+
+📌 그리고 부대시설 면적이 너무 작아지면 문제가 될 수 있어요!<br>
+(※ <strong>기준공장면적율</strong>이라는 기준 때문입니다)  
+  `
+}
+,
     {
     id: 'popup_cancel_penalty',
     label: '허가취소 되면 어떤 불이익이 있나요?',
