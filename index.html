@@ -492,7 +492,9 @@ const flow = [
   options: [
     { label: '처음으로 돌아가기', next: 'q1' }
   ]
-},
+}
+
+,
 
   {
     id: 'q3_completed',
@@ -684,8 +686,21 @@ const infoMap = {
 ⏳ 그리고 <strong>허가일로부터 4년 이내에 완료신고를 하지 않으면</strong><br>
 → <span class="highlight-phrase">공장설립 허가가 취소</span>될 수 있습니다 😢<br><br>
 
+😊 참고로, 과태료 대상 여부를 검토할 때에는<br>
+정확한 확인을 위해 사업자님께<br>
+아래 서류를 요청드릴 수도 있어요.<br><br>
+
+1️⃣ <span class="highlight-phrase">사업자등록증 사본</span><br>
+2️⃣ <span class="highlight-phrase">부가가치세 과세표준증명원</span><br>
+3️⃣ <span class="highlight-phrase">전기요금 고지서(사용량 확인)</span><br>
+4️⃣ <span class="highlight-phrase">전기공급 계약 관련 서류</span><br><br>
+
+📌 이 서류들은 <span class="highlight-phrase">잘못된 과태료 부과를 방지</span>하기 위한 목적이며,<br>
+<span class="highlight-phrase">용도 외로는 절대 사용되지 않으니</span><br>
+사업자님의 협조를 부탁드립니다 🙏
 `
-},
+}
+,
 
   'q3_reported': {
     title: '🎉 모든 절차 완료!',
@@ -801,6 +816,67 @@ const popupMap = {
 👉 창업기업일수록 의무사항을 잘 지켜주셔야<br>
 세제 혜택이 안전하게 유지됩니다 😊`
   },
+  {
+  id: 'popup_startup_tax_benefit',
+  label: '취득세? 창업기업 세금면제?',
+  content: `
+🧭 <strong>시작 전에!</strong><br>
+자, 지금부터 약간 집중이 필요할 수 있어요. 내용이 조금 어려울 수 있으니<br>
+천천히 보세요. <span class="highlight-phrase">최대한 간단히</span> 설명드릴게요!<br><br>
+
+Q. <strong>취득세, 누구나 감면되나요?</strong><br>
+👉 아니에요! 아래 조건을 모두 충족해야 해요.<br><br>
+- <span class="highlight-phrase">진짜 창업</span>일 것 (동일 업종 사업 경험 있으면 ❌)<br>
+   ※ 기존 회사가 있어도 해당 업종 영업 경험 없음을 입증하면 가능<br>
+- 창업 후 <span class="highlight-phrase">4년 이내</span> (청년창업은 5년)<br>
+- <span class="highlight-phrase">중소기업</span>일 것<br>
+- <span class="highlight-phrase">감면 대상 업종</span>일 것 (예: 제조업, 정보통신업 등)<br>
+- 부동산을 <span class="highlight-phrase">사업용으로 직접 사용</span>할 것<br><br>
+
+Q. <strong>얼마나 감면되나요?</strong><br>
+👉 취득세 <span class="highlight-phrase">75% 감면</span> (2026.12.31까지)<br><br>
+
+Q. <strong>감면이 안 되는 경우?</strong><br>
+👉 이런 경우는 제외돼요:<br>
+- 기존 사업 <span class="highlight-phrase">승계</span><br>
+- 개인사업자 → 법인 <span class="highlight-phrase">전환</span><br>
+- 폐업 후 동일 업종 <span class="highlight-phrase">재창업</span><br>
+- 단순 <span class="highlight-phrase">사업 확장/업종 추가</span><br><br>
+
+Q. <strong>감면받은 후 지켜야 할 조건은?</strong><br>
+👉 꼭 지켜야 해요:<br>
+- 취득일로부터 <span class="highlight-phrase">3년 내 준공 + 직접 사용</span><br>
+- <span class="highlight-phrase">3년 내 임대·매각·사적 이용</span> 시 추징<br>
+- 최초 사용일부터 <span class="highlight-phrase">2년간 계속 직접 사용</span><br><br>
+
+😵 조금 어려웠으려나요? ㅠㅠ<br>
+혹시 너무 어렵거나~ 이 외 자세한 사항을 알고 싶으시다면!<span class="highlight-phrase">포천시청 세정과</span>로 편하게 문의하여 주세요!<br>
+📞 (031-538-2207)
+`
+},
+{
+  id: 'popup_other_permits',
+  label: '혹시 공장허가 말고 다른 허가 알려줄 수 없나요?',
+  content: `
+🎉 와우~! <span class="highlight-phrase">다른 허가</span>에도 관심이 있으시군요!!<br><br>
+
+그래서 우리 <span class="highlight-phrase">포천시</span>는 이러한 궁금증을 갖고 계신 시민분들을 위해<br>
+<strong>‘민원사무편람’</strong>을 만들어 배포하고 있답니다 😃<br><br>
+
+산지전용 절차도~ 환경허가 절차도~<br>
+공장 허가 안내서, 건축허가 등등등<br>
+많~이 준비되어 있어요!<br><br>
+
+👉 원하시는 게시글을 클릭하시면<br>
+언제든, 얼마든지 확인하실 수 있답니다!<br><br>
+
+🙌 민원인들의 편의를 위해 노력을 계속하는 <span class="highlight-phrase">포천시청 허가담당관</span>도<br>
+많이 칭찬해주세요!<br><br>
+
+🔗 <a href="https://www.pocheon.go.kr/www/selectBbsNttList.do?bbsNo=8&key=14725&pageUnit=10&searchCtgry=%ED%97%88%EA%B0%80%EB%8B%B4%EB%8B%B9%EA%B4%80&pageIndex=1" target="_blank">👉 다른 허가가 궁금해요!</a>
+`
+}
+
   ],
   'q2_procedure_after_start': [
     {
@@ -1031,7 +1107,31 @@ const popupMap = {
 
 
   'q3_not_reported': [
+    
+  {
+  id: 'popup_who_reports_completion',
+  label: '완료신고는 어떻게, 누가 신청하나요?',
+  content: `
+📝 <strong><span class="highlight-phrase">완료신고</span>는 누가 신청하나요?</strong><br><br>
 
+👉 기본적으로 <span class="highlight-phrase">사업자님이 직접</span> 얼마든지 하실 수 있어요!<br>
+하지만 솔직히.. 조금 <strong>어려울 수 있답니다 😭</strong><br><br>
+
+그래서 많은 분들이 <span class="highlight-phrase">대행사(행정사 등)</span>에<br>
+의뢰해서 진행하시기도 해요 😊<br><br>
+
+📌 우선, <a href="https://www.pocheon.go.kr/www/contents.do?key=5220" target="_blank">완료신고 서식</a>을 한 번 확인해보세요!<br>
+해당 페이지 맨 아래에 <strong>‘공장설립등의 완료신고서’</strong>가 있어요 🏗️<br><br>
+
+만약 “너무 어렵다…” 싶으시면<br>
+<span class="highlight-phrase">대행을 맡기실 수도 있다</span>는 점,<br>
+알려드려요!<br><br>
+
+⏳ 다만, <strong>촉박하게 완료신고를 해야 하는 상황이 아니라면</strong><br>
+<a href="https://www.pocheon.go.kr/www/selectBbsNttView.do?bbsNo=8&nttNo=437910&key=14725&pageUnit=10&searchCtgry=%ED%97%88%EA%B0%80%EB%8B%B4%EB%8B%B9%EA%B4%80&pageIndex=1" target="_blank">민원사무편람</a>을 참고하시면서<br>
+직접 작성해보시는 것도 좋은 방법이에요!<br>(들어가셔서 '공장 허가업무 안내서'를 눌러보세요!) 📖
+`
+},
   {
   id: 'popup_illegal_use_warning',
   label: '완료신고 전 매도·임대하면 어떻게 되나요?',
