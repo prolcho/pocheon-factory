@@ -686,7 +686,7 @@ const infoMap = {
 ⏳ 그리고 <strong>허가일로부터 4년 이내에 완료신고를 하지 않으면</strong><br>
 → <span class="highlight-phrase">공장설립 허가가 취소</span>될 수 있습니다 😢<br><br>
 
-😊 참고로, 과태료 대상 여부를 검토할 때에는<br>
+💡 참고로, 과태료 대상 여부를 검토할 때에는<br>
 정확한 확인을 위해 사업자님께<br>
 아래 서류를 요청드릴 수도 있어요.<br><br>
 
@@ -870,7 +870,7 @@ Q. <strong>감면받은 후 지켜야 할 조건은?</strong><br>
 🙌 민원인들의 편의를 위해 노력을 계속하는 <span class="highlight-phrase">포천시청 허가담당관</span>도<br>
 많이 칭찬해주세요!<br><br>
 
-🔗 <a href="https://www.pocheon.go.kr/www/selectBbsNttList.do?bbsNo=8&key=14725&pageUnit=10&searchCtgry=%ED%97%88%EA%B0%80%EB%8B%B4%EB%8B%B9%EA%B4%80&pageIndex=1" target="_blank">👉 다른 허가가 궁금해요!</a>
+🔗 <a href="https://www.pocheon.go.kr/www/selectBbsNttList.do?bbsNo=8&key=14725&pageUnit=10&searchCtgry=%ED%97%88%EA%B0%80%EB%8B%B4%EB%8B%B9%EA%B4%80&pageIndex=1" target="_blank"> 다른 허가가 궁금해요!</a>
 `
 }
 
@@ -1433,6 +1433,12 @@ progressBar.innerText = percent + '%';
 
     const navButtons = document.querySelector('.nav-buttons');
     navButtons.style.visibility = history.length === 0 ? 'hidden' : 'visible';
+
+    // 👇 화면 전환 후 스크롤 맨 위로 이동
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'   // 부드럽게 스크롤 (원하면 'auto'로 바꿔도 됨)
+    });
   }, 600);
 }
 
